@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Array</title>
+    <style>
+        h3{
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+    <h2>Custom Array --> Using .prototype</h2>
+    <h3>Method Added </h3>
+    <h4> 1)Push(value)</h4>
+    <h4> 2)Pop()</h4>
+    <h4> 3)Top()</h4>
+    <h4> 4)Print()</h4>
+    <h4> 5)Print Reverse()</h4>
+    <h4> 6)Size</h4>
+    <h5>To view Right Click -> Inspect -> Console </h5>
+    
+</body>
+</html>
+<script>
+    let a1 = new myCustomArray("a", "b", "c");
+    console.log(a1);
+
+function myCustomArray() {
+    Object.defineProperty(this, "length", {
+        value: 0,
+        writable: true,
+        enumerable: false,
+    });
+    this.length = arguments.length;
+
+    for (let i = 0; i < this.length; i++) {
+        this[i] = arguments[i];
+    }
+
+}
+
+let a2 = new myCustomArray("a", "b", "c");
+myCustomArray.prototype.push = function (value) {       // push() Should add an element at the end
+    let index = this.length;
+    this[index] = value;
+    this.length++;
+};
+
+myCustomArray.prototype.pop = function () {              // pop() Should remove an element from the end.
+    let index = this.length - 1;
+    delete this[index];
+    this.length--;
+};
+
+myCustomArray.prototype.top = function (value) {         // top() Should return the element at the last index.
+    let index = this.length - 1;
+    console.log(this[index]);
+
+};
+
+myCustomArray.prototype.print = function () {            //print() Should print the elements in a single line
+    let bag = "";
+    for (let i = 0; i < this.length; i++) {
+        bag = bag + this[i] + " ";
+    }
+    console.log(bag);
+};
+
+myCustomArray.prototype.reverse = function () {          //printReverse() Should print the elements in a single line in reverse order.
+    let bag = "";
+    for (let i = this.length - 1; i >= 0; i--) {
+        bag = bag + this[i] + " ";
+    }
+    console.log(bag);
+};
+
+myCustomArray.prototype.size = function () {             //size Should return the length of the stack
+    console.log(this.length);
+};
+
+
+a2.push("d")
+a2.push("e")
+a2.push("f")
+a2.push("g")
+
+console.log("a2: Push", Object.values(a2));
+
+a2.pop()
+a2.pop()
+
+console.log("a2: Pop", Object.values(a2));
+
+a2.top();
+
+console.log("a2: Top", Object.values(a2));
+
+a2.print();
+
+console.log("a2: Print", Object.values(a2));
+
+a2.reverse();
+
+console.log("a2: Print Reverse", Object.values(a2));
+
+a2.size();
+</script>
